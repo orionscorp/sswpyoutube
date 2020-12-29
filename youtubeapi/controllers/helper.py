@@ -1,3 +1,8 @@
+'''
+This is the only modules that other apps should 
+interact with
+'''
+
 from django.db.models import Q
 
 from youtubeapi.models.channel import Channel
