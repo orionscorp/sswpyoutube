@@ -1,0 +1,5 @@
+db.sqlite3
+sswpyoutube/__pycache__
+youtubeapi/__pycache__
+youtubeapi/migrations
+youtubeapi/models/__pycache__
