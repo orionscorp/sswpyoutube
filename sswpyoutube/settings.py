@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -120,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# the async views only work with this setting, what are the consequences?
+# no idea, should i be worried? perhaps, do i know any other solution?
+# too bad
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"

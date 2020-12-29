@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 
-import youtubeapi.controllers.debug_helper
+import youtubeapi.controllers.debug_helper as debug_helper
 
 # don't forget to hide this key post-deployment
 API_KEY = 'AIzaSyAL8iJZSXRd6iu-yhiMeu9osvMZX1XKjKE'
@@ -13,7 +13,7 @@ def fetchChannelAPI(channelId): # 1 unit per call
         id=channelId
     )
     api_response = api_request.execute()
-    youtubeapi.controllers.debug_helper.API_CALLS_MADE += 1
+    debug_helper.apicalls.API_CALLS_MADE_FUNCTION += 1
 
     newId = api_response['items'][0]['id']
     newName = api_response['items'][0]['snippet']['title']
@@ -33,7 +33,7 @@ def fetchPlaylistItemsAPI(playlistId):
             playlistId=playlistId,
         )
         api_response = api_request.execute()
-        youtubeapi.controllers.debug_helper.API_CALLS_MADE += 1
+        debug_helper.apicalls.API_CALLS_MADE_FUNCTION += 1
 
         try:
             nextPageToken = api_response['nextPageToken']
@@ -52,7 +52,7 @@ def fetchVideosAPI(videoId): # 1 unit per call, the maximum num of videoId in on
         id=videoId
     )
     api_response = api_request.execute()
-    youtubeapi.controllers.debug_helper.API_CALLS_MADE += 1
+    debug_helper.apicalls.API_CALLS_MADE_FUNCTION += 1
     items = api_response['items']
     return items
 

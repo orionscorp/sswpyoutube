@@ -3,3 +3,4 @@ sswpyoutube/__pycache__
 youtubeapi/__pycache__
 youtubeapi/migrations
 youtubeapi/models/__pycache__
+youtubeapi/controllers/__pycache__

@@ -5,6 +5,7 @@ from youtubeapi.models.video import Video
 
 from .youtube_xml import fetchXML
 from .youtube_api import fetchVideosAPI, fetchChannelAPI, fetchPlaylistItemsAPI
+import youtubeapi.controllers.debug_helper as debug_helper
 
 # Yield successive n-sized chunks from l. 
 def divide_chunks(l, n): 
@@ -23,6 +24,7 @@ return value: number of new videos found (int)
 
 should be running periodically in the background
 '''
+@debug_helper.st_time
 def refreshFeeds():
     fetched = fetchXML()
     newlyCrawledVideoIdList = []
@@ -95,6 +97,7 @@ return value: number of videos refreshed (int)
 
 should be running periodically in the background
 '''
+@debug_helper.st_time
 def refreshWatchlist():
     watchlist = Video.objects.filter(Q(liveBroadcastContent='live') | Q(liveBroadcastContent='upcoming'))
     # in most cases, if you run this with enough interval, it shouldn't exceeds 50 videos. but just in case
@@ -102,7 +105,7 @@ def refreshWatchlist():
     dividedChunks = list(divide_chunks(watchlistedVideoIdList, 50))
 
     for chunk in dividedChunks:
-        videoIdString = ",".join(watchlistedVideoIdList)
+        videoIdString = ",".join(chunk)
 
         # what would happen if the video is unarchived or privated, who knows, too bad
         items = fetchVideosAPI(videoIdString)
@@ -157,6 +160,7 @@ return value: number of videos uploaded to the channel
 important note: should we let users add new channel or just live it
 to admins to curate the selection?
 '''
+@debug_helper.st_time
 def saveNewChannel(channelId):
     fetchedChannel = fetchChannelAPI(channelId)
     newChannel = Channel(channelId=fetchedChannel[0], name=fetchedChannel[1], icon=fetchedChannel[2], uploadPlaylist=fetchedChannel[3])
