@@ -1,0 +1,23 @@
+{% if post_reset %}Post reset{% endif %}
+
+{% if form.errors %}
+<p> {{form.get_invalid_login_error}} </p>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+    <p>You are already logged in
+{% else %}
+    <form method="post" action="{% url 'user:login' %}">
+    {% csrf_token %}
+    Username:
+    {{ form.username }}
+    <p>
+    Password
+    {{ form.password }}
+
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    </form>
+    <p><a href="{% url 'user:password_reset' %}">Lost password?</a></p>
+{% endif %}
+
