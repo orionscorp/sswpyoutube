@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
-    {% block title %}<title>Proof of Concept</title>{% endblock %}
+    {% block title %}<title>Holoinfo</title>{% endblock %}
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
 
@@ -38,7 +38,7 @@
 padding-top: 3rem;
 padding-bottom: 3rem;
 margin-bottom: 0;
-background-color: #fff;
+background-color: #f8f9fa;
 }
 @media (min-width: 768px) {
 .jumbotron {
@@ -73,7 +73,7 @@ margin-bottom: .25rem;
   <body>
     <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{% url 'index' %}">Proof of Concept</a>
+    <a class="navbar-brand" href="{% url 'index' %}">Holoinfo</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -85,12 +85,6 @@ margin-bottom: .25rem;
         <li class="nav-item">
           <a class="nav-link" href="{% url 'channel-index' %}">Channels</a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Videos</a>
-          </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> -->
       </ul>
     </div>
   </nav>
@@ -100,140 +94,7 @@ margin-bottom: .25rem;
   <!-- Marketing messaging and featurettes
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
-
 {% block content %}
-<div class="jumbotron">
-  <div class="container">
-    <h1 class="display-3">Hello, world!</h1>
-    <p>The amount of YouTube API quota point(s) spent in this session: {{ api_points }}.</p>
-    <p>
-      <a class="btn btn-primary btn-lg" href="{% url 'update-recent-feeds' %}" role="button">Update all feeds &raquo;</a>
-      <a class="btn btn-secondary btn-lg" href="{% url 'update-watchlist' %}" role="button">Update all watchlist &raquo;</a>
-    </p>
-    {% if messages %}
-    <div class="py-5 text-center">
-      <h2>Info:</h2>
-      {% for message in messages %}
-      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-      {% endfor %}
-    </div>
-    {% endif %}
-  </div>
-</div>
-<hr class="mb-4">
-
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1>Currently Live Broadcast</h1>
-      <p class="lead text-muted">lorem ipsum dolor sit amet homina homina homina homina homina.</p>
-    </div>
-  </section>
-  
-  <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="row">
-  
-          {% for liveVideo in liveVideos %}
-          <div class="col-md-4">
-                        <a href="https://www.youtube.com/watch?v={{ liveVideo.videoId }}">
-            <div class="card mb-4 shadow-sm">
-              <img style="  width: 347px;height: 180px;object-fit: cover;" src="{{ liveVideo.thumbnail }}" alt="url">
-               <div class="avatar" style="width:60px;text-align: center;padding:-20px;">
-                 <img src="{{ liveVideo.channelId.icon }}" alt="icon" role="img" preserveAspectRatio="xMidYMid slice" focusable="false" style="border-radius: 50%;width: 60px;border: 2px #c71e3e solid;position: absolute;">
-                 </div>
-                 </a>
-              <div class="card-body">
-                <p style="  white-space: nowrap; overflow: hidden;text-overflow: ellipsis; max-width: 200px;" class="card-text">{{ liveVideo.title }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <small class="text-muted">{{liveVideo.actualStartTime}}</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          
-        </div>
-      </div>
-    </div>
-  
-  
-  
-  
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1>Upcoming Live Streams</h1>
-      <p class="lead text-muted">lorem ipsum dolor sit amet homina homina homina homina homina.</p>
-    </div>
-  </section>
-  
-  <div class="album py-5 bg-light">
-      <div class="container">
-  
-        <div class="row">
-  
-          {% for upcomingVideo in upcomingVideos %}
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img style="  width: 347px;height: 180px;object-fit: cover;" src="{{ upcomingVideo.thumbnail }}" alt="url">
-              <div class="card-body">
-                <p style="  white-space: nowrap; overflow: hidden;text-overflow: ellipsis; max-width: 200px;" class="card-text">{{ upcomingVideo.title }}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                <div class="avatar" style="width:60px;text-align: center;padding:-20px;">
-                 <img src="{{ upcomingVideo.channelId.icon }}" alt="icon" role="img" preserveAspectRatio="xMidYMid slice" focusable="false" style="border-radius: 50%;width: 60px;border: 2px #c71e3e solid;">
-                </div>
-                  <small class="text-muted">{{upcomingVideo.scheduledStartTime}}</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          
-        </div>
-      </div>
-    </div>
-  
-  
-  
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1>Recently Ended Live Streams</h1>
-        <p class="lead text-muted">lorem ipsum dolor sit amet homina homina homina homina homina.</p>
-      </div>
-    </section>
-    
-    <div class="album py-5 bg-light">
-        <div class="container">
-    
-          <div class="row">
-    
-            {% for recentlyEndedStream in recentlyEndedStreams %}
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img style="  width: 347px;height: 180px;object-fit: cover;" src="{{ recentlyEndedStream.thumbnail }}" alt="url">
-                <div class="card-body">
-                  <p style="  white-space: nowrap; overflow: hidden;text-overflow: ellipsis; max-width: 200px;" class="card-text">{{ recentlyEndedStream.title }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <div class="avatar" style="width:60px;text-align: center;padding:-20px;">
-                 <img src="{{  recentlyEndedStream.channelId.icon }}" alt="icon" role="img" preserveAspectRatio="xMidYMid slice" focusable="false" style="border-radius: 50%;width: 60px;border: 2px #c71e3e solid;">
-                </div>
-                    <small class="text-muted">{{recentlyEndedStream.publishedAt}}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            
-          </div>
-        </div>
-      </div>
 {% endblock %}
   <!-- FOOTER -->
   <footer class="container">
