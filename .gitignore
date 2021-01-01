@@ -1,11 +1,11 @@
 db.sqlite3
 sswpyoutube/__pycache__
 youtubeapi/__pycache__
-youtubeapi/migrations
 youtubeapi/models/__pycache__
+youtubeapi/migrations/__pycache__
 youtubeapi/controllers/__pycache__
 
 display/__pycache__
 display/controllers/__pycache__
-display/migrations
+display/migrations/__pycache__
 display/forms/__pycache__
