@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'youtubeapi',
+    'display'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,9 @@ ROOT_URLCONF = 'sswpyoutube.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +125,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# the async views only work with this setting, what are the consequences?
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+# the async functions only work with this setting, what are the consequences?
 # no idea, should i be worried? perhaps, do i know any other solution?
 # too bad
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"

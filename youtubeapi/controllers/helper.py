@@ -8,7 +8,7 @@ from django.db.models import Q
 from youtubeapi.models.channel import Channel
 from youtubeapi.models.video import Video
 
-from .youtube_xml import fetchXML
+from .youtube_xml import fetchXML, fetchChannelXML
 from .youtube_api import fetchVideosAPI, fetchChannelAPI, fetchPlaylistItemsAPI
 import youtubeapi.controllers.debug_helper as debug_helper
 
@@ -153,10 +153,22 @@ def refreshWatchlist():
     return len(watchlistedVideoIdList)
 
 '''
+check if the channel exist, this is so that we don't have to 
+expend a youtube api call just to check if a channel exists,
+instead, we use its xml feed
+'''
+def isChannelExist(channelId):
+    channelTuple = fetchChannelXML(channelId)
+    if channelTuple:
+        return channelTuple
+    else:
+        return False
+
+'''
 assuming a channel associated with the channelId exists, save the 
 channel into the db along with all of its uploaded videos. Make
 a validation before calling this function to ensure that the channel
-really exists (use fetchChannelXML), otherwise the youtube api call 
+really exists (use isChannelExist), otherwise the youtube api call 
 will return a json response without any entries.
 
 arguments: channelId associated with the YouTube channel (str)

@@ -11,15 +11,19 @@ from youtubeapi.models.video import Video
 
 def fetchChannelXML(channelId):
 
-    url = 'https://www.youtube.com/feeds/videos.xml?channel_id=%s' % channelId
-    var_url = urlopen(url)
-    tree = ET.parse(var_url)
-    root = tree.getroot()
+    try:
+        url = 'https://www.youtube.com/feeds/videos.xml?channel_id=%s' % channelId
+        var_url = urlopen(url)
+        tree = ET.parse(var_url)
+        root = tree.getroot()
 
-    currChannelId = root[2].text
-    currChannelName = root[3].text
+        currChannelId = root[2].text
+        currChannelName = root[3].text
 
-    return (currChannelId, currChannelName)
+        return (currChannelId, currChannelName)
+    except Exception as e:
+        print(e)
+        return False
 
 async def fetch(url, session): # if only i knew how to use pub/sub, too bad
     async with session.get(url) as response:
